@@ -10,6 +10,9 @@ import { TecnicoService } from 'src/app/services/tecnico.service';
   styleUrls: ['./tecnico-list.component.css']
 })
 export class TecnicoListComponent implements OnInit {
+applyFilter($event: KeyboardEvent) {
+throw new Error('Method not implemented.');
+}
 
   ELEMENT_DATA: Tecnico[] = []
 
