@@ -1,5 +1,7 @@
+import { Element } from '@angular/compiler/src/render3/r3_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Tecnico } from 'src/app/models/tecnico';
 import { TecnicoService } from 'src/app/services/tecnico.service';
@@ -28,16 +30,24 @@ export class TecnicoCreateComponent implements OnInit {
 
   constructor(
     private service: TecnicoService,
-    private toast: ToastrService,) {}
+    private toast: ToastrService,
+  private router: Router,
+  ) {}
 
   ngOnInit(): void {}
 
   create(): void {
     this.service.create(this.tecnico).subscribe(()=> {
       this.toast.success('Técnico cadastrado com sucesso', 'cadastro');
+      this.router.navigate(['tecnicos']);
     }, ex => {
-
-      console.log(ex);
+      if(ex.error.errors) {
+        ex.error.errors.forEach(element => {
+          this.toast.error(element.message);
+        });
+      } else {
+        this.toast.error(ex.error.message);
+      }
     })
   }
 
@@ -49,8 +59,6 @@ export class TecnicoCreateComponent implements OnInit {
   }
 
   addPerfil(perfil: any): void{
-    console.log(this.tecnico.perfis);
-    
     if(this.tecnico.perfis.includes(perfil)){
       this.tecnico.perfis.splice(this.tecnico.perfis.indexOf(perfil), 1);
     } else{
@@ -64,5 +72,4 @@ export class TecnicoCreateComponent implements OnInit {
     return this.nome.valid && this.cpf.valid
       && this.email.valid && this.senha.valid
   }
-
 }
