@@ -11,4 +11,4 @@ export interface Chamado {
     nomeCliente:          string;
     nomeTecnico:          string;
 }
-
+    
