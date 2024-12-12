@@ -79,7 +79,8 @@
             [formControl]="observacoes"
             required
             class="observacoes"
-            matInput placeholder="Ex. trocar bateria do carro queimada..."></textarea>
+            matInput 
+            placeholder="Ex. trocar bateria do carro queimada..."></textarea>
         </mat-form-field>
     </form>
     <button (click)="create()" [disabled]="!validaCampos()" class="full-width mat-elevation-z4" mat-raised-button color="primary">Atualizar</button>
